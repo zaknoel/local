@@ -13,7 +13,7 @@ class Record
         }
         $this->entity =\Bitrix\Highloadblock\HighloadBlockTable::compileEntity($arData);
         return $this;
-    }
+    } 
     public static function init($hblock)
     {
         return new Record($hblock);
@@ -64,17 +64,9 @@ class Record
         //Получаем результат по привычной схеме
         $result = new CDBResult($result);
         $arLang = array();
-        if($this->ib==5)
-        {
-            $m=Record::init(6)->GetList(array(), array("UF_USER"=>$GLOBALS["USER"]->GetID()), array("*"));
-            $ms=[];
-            foreach($m as $vv)
-            {
-                $ms[$vv["UF_ORGINAL"]]=$vv["UF_NAME"];
-            }
-        }
+       
         while ($row = $result->Fetch()){
-            if($ms[$row["ID"]]) $row["UF_NAME"]=$ms[$row["ID"]];
+          
             $arLang[$row['ID']] = $row;
         }
         if(count($arLang)==1 && $doArray)
